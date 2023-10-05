@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dokku": {
+      "predeploy": "python manage.py migrate --noinput"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  }
+}
