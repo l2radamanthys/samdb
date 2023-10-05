@@ -7,4 +7,5 @@ dump.rdb
 .vscode/
 .pytest_cache/
 notebook/
+.env
 
