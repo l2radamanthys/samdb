@@ -21,7 +21,9 @@ env = environ.Env(
     ENVIROMENT=(str, "DEVELOPMENT"),
     SECRET_KEY=(str, "secret-key"),
     ALLOWED_HOSTS=(str, "127.0.0.1"),
-    DEBUG=(bool, True)
+    WHITE_NOISE_ENABLED=(bool, False),
+    DEBUG=(bool, True),
+    MEDIA_ROOT=(str, "storage")
 )
 
 
@@ -61,6 +63,26 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+
+WHITE_NOISE_ENABLED = env("WHITE_NOISE_ENABLED")
+# Add the following configs after the INSTALLED_APPS list.
+if WHITE_NOISE_ENABLED:
+    INSTALLED_APPS.remove('django.contrib.staticfiles')
+    INSTALLED_APPS.extend([
+        'whitenoise.runserver_nostatic',
+        'django.contrib.staticfiles',
+    ])
+
+
+# add this line after the MIDDLEWARE list.
+if WHITE_NOISE_ENABLED:
+    MIDDLEWARE.remove('django.middleware.security.SecurityMiddleware')
+    MIDDLEWARE = [
+                     'django.middleware.security.SecurityMiddleware',
+                     'whitenoise.middleware.WhiteNoiseMiddleware',
+    ] + MIDDLEWARE
+
 
 ROOT_URLCONF = "backend.urls"
 
@@ -117,22 +139,21 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
-
-LANGUAGE_CODE = "es-ar"
-
-TIME_ZONE = "UTC"
-
+LANGUAGE_CODE = "es"
+TIME_ZONE = "America/Argentina/Buenos_Aires"
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+STATIC_ROOT = "static"
 STATIC_URL = "static/"
+MEDIA_ROOT = env("MEDIA_ROOT")
+MEDIA_URL = "/media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

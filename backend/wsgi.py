@@ -1,16 +1,15 @@
-"""
-WSGI config for backend project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
-"""
-
 import os
 
 from django.core.wsgi import get_wsgi_application
+from whitenoise import WhiteNoise
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "backend.settings")
+WHITE_NOISE_ENABLED = os.environ.get('WHITE_NOISE_ENABLED', None) == 'on'
 
 application = get_wsgi_application()
+
+if WHITE_NOISE_ENABLED:
+    from whitenoise import WhiteNoise
+    application = WhiteNoise(application, root=BASE_DIR)
+    application.add_files(os.path.join(BASE_DIR, 'static'), prefix='/static')
+
