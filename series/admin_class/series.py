@@ -30,6 +30,7 @@ class SerieAdmin(admin.ModelAdmin):
         'name',
         'type',
         'genres',
+        'chapters',
         'calification',
         'imdb_calification',
         'status',
@@ -47,3 +48,4 @@ class SerieAdmin(admin.ModelAdmin):
         'type',
         'status',
     )
+

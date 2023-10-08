@@ -1,11 +1,12 @@
 *.pyc
 *.pyo
 *.sqlite3
+*.dump
 staticfiles/
 storage/
-dump.rdb
 .vscode/
 .pytest_cache/
 notebook/
+storage/
 .env
-
+dump.rdb
