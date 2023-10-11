@@ -57,6 +57,7 @@ class SerieAdmin(admin.ModelAdmin):
         'code',
         'type',
         'genres',
+        'pub_day_of_week',
         'chapters',
         'calification',
         'imdb_calification',
@@ -75,6 +76,7 @@ class SerieAdmin(admin.ModelAdmin):
     list_filter = (
         'type',
         'status',
+        'pub_day_of_week',
         GenreListFilter,
     )
 

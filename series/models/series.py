@@ -7,12 +7,19 @@ class Serie(models.Model):
         ('A', 'En Emision'),
         ('F', 'Finalizada')
     )
-
-
     TYPES_CHOICES = (
         ('TV', 'TV Show'),
         ('MOVIE', 'Pelicula'),
         ('GAME', 'Video Juegos'),
+    )
+    DAY_OF_WEEK_CHOICES = (
+        (1, 'Lunes'),
+        (2, 'Martes'),
+        (3, 'Miercoles'),
+        (4, 'Jueves'),
+        (5, 'Viernes'),
+        (6, 'Sabado'),
+        (7, 'Domingo'),
     )
 
     name = models.CharField("Nombre", max_length=200)
@@ -22,6 +29,8 @@ class Serie(models.Model):
     imdb_calification = models.FloatField("IMDB Calificacion", default=None, blank=True, null=True)
     image = models.ImageField("Portada", upload_to="media/uploads", default='media/uploads/default_image.png')
     release_date = models.DateField(default=None, blank=True, null=True)
+    pub_day_of_week = models.IntegerField(choices=DAY_OF_WEEK_CHOICES, default=None, blank=True, null=True)
+
     chapters = models.IntegerField("Numero de Capitulos", default=None, blank=True, null=True)
     status = models.CharField("Estado", max_length=1, choices=STATUS_CHOICES)
     type = models.CharField("Tipo", max_length=10, choices=TYPES_CHOICES)
