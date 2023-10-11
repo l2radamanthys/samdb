@@ -14,3 +14,6 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+
+    def count(self):
+        return self.series_genres.all().count()

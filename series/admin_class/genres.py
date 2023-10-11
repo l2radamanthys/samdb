@@ -7,6 +7,7 @@ class GenreAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
+        'count',
     )
     search_fields = ('name', )
 
