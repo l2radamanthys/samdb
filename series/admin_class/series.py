@@ -1,5 +1,6 @@
 from django.contrib import admin
 from series.models.series import Serie
+from series.models.genres import Genre
 from series.models.series_genres import SerieGenre
 from series.models.also_now_as import AlsoNowAs
 from series.models.servers import Server
@@ -33,11 +34,27 @@ class SerieRelationInline(admin.TabularInline):
     extra = 0
 
 
+class GenreListFilter(admin.SimpleListFilter):
+    title = "Genero"
+    parameter_name = 'genre'
+
+    def lookups(self, request, model_admin):
+        queryset = Genre.objects.all()
+        return [(g.id, g.name) for g in queryset]
+
+    def queryset(self, request, queryset):
+        if self.value() is not None:
+            ids = [sg.serie.id for sg in SerieGenre.objects.filter(genre__id=self.value())]
+            queryset = queryset.filter(id__in=ids)
+        return queryset
+
+
 class SerieAdmin(admin.ModelAdmin):
     model = Serie
     list_display = (
         'id',
         'name',
+        'code',
         'type',
         'genres',
         'chapters',
@@ -58,5 +75,6 @@ class SerieAdmin(admin.ModelAdmin):
     list_filter = (
         'type',
         'status',
+        GenreListFilter,
     )
 
