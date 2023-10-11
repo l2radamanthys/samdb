@@ -7,6 +7,7 @@ class SerieRelation(models.Model):
         ('Precuela', 'Precuela'),
         ('Historia Principal', 'Historia Principal'),
         ('Historia Paralela', 'Historia Paralela'),
+        ('Historia Completa', 'Historia Completa'),
         ('Resumen', 'Resumen'),
     )
 
