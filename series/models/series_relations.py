@@ -11,7 +11,7 @@ class SerieRelation(models.Model):
     )
 
     main = models.ForeignKey("series.Serie", on_delete=models.CASCADE, related_name="series_relations")
-    referenced = models.ForeignKey("series.Serie", on_delete=models.CASCADE, related_name="series_relations_referenced")
+    referenced =models.ForeignKey("series.Serie", on_delete=models.CASCADE, related_name="series_relations_referenced")
     relation = models.CharField(max_length=50, choices=RELATIONS_CHOICES, default=None, null=True, blank=True)
     order = models.IntegerField(default=0, null=True, blank=True)
 
